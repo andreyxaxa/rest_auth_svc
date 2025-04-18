@@ -1,1 +1,6 @@
 addr = ":8080"
+log_level = "debug"
+database_url = "postgres://postgres:123@localhost/rest_auth_dev?sslmode=disable"
+
+[secret]
+jwt_secret = "mega-super-ultra-xxl-turbo-secret-key123321"
