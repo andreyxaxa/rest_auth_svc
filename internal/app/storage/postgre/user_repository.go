@@ -6,6 +6,7 @@ import (
 
 	"github.com/andreyxaxa/rest_auth_svc/internal/app/models"
 	"github.com/andreyxaxa/rest_auth_svc/internal/app/storage"
+	"github.com/google/uuid"
 )
 
 type UserRepository struct {
@@ -21,18 +22,46 @@ func (r *UserRepository) Create(u *models.User) error {
 		return err
 	}
 
-	return r.storage.db.QueryRow(
-		"INSERT INTO users (email, encrypted_password) VALUES ($1, $2) RETURNING ID",
+	u.ID = uuid.New().String()
+
+	_, err := r.storage.db.Exec(
+		"INSERT INTO users (id, email, encrypted_password) VALUES ($1, $2, $3)",
+		u.ID,
 		u.Email,
 		u.EncryptedPassword,
-	).Scan(&u.ID)
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
-func (r *UserRepository) Find(email string) (*models.User, error) {
+func (r *UserRepository) FindByEmail(email string) (*models.User, error) {
 	u := &models.User{}
 	if err := r.storage.db.QueryRow(
 		"SELECT id, email, encrypted_password FROM users WHERE email = $1",
 		email,
+	).Scan(
+		&u.ID,
+		&u.Email,
+		&u.EncryptedPassword,
+	); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, storage.ErrRecordNotFound
+		}
+
+		return nil, err
+	}
+
+	return u, nil
+}
+
+func (r *UserRepository) FindByID(id string) (*models.User, error) {
+	u := &models.User{}
+	if err := r.storage.db.QueryRow(
+		"SELECT id, email, encrypted_password FROM users WHERE id = $1",
+		id,
 	).Scan(
 		&u.ID,
 		&u.Email,

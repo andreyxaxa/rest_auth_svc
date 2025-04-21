@@ -8,13 +8,13 @@ import (
 )
 
 type UserClaims struct {
-	ID    int    `json:"id"`
+	ID    string `json:"id"`
 	Email string `json:"email"`
 	IP    string `json:"ip"`
 	jwt.RegisteredClaims
 }
 
-func NewUserClaims(id int, email string, ip string, duration time.Duration) (*UserClaims, error) {
+func NewUserClaims(id string, email string, ip string, duration time.Duration) (*UserClaims, error) {
 	tokenID, err := uuid.NewRandom()
 	if err != nil {
 		return nil, err

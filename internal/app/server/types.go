@@ -8,7 +8,7 @@ type UserCreateReq struct {
 }
 
 type UserCreateRes struct {
-	ID    int    `json:"id"`
+	ID    string `json:"id"`
 	Email string `json:"email"`
 }
 
