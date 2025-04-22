@@ -10,7 +10,7 @@ RUN go mod download
 
 # build
 COPY . .
-RUN go build -o ./bin/app cmd/main.go
+RUN go build -o ./bin/app cmd/auth/main.go
 
 # run
 FROM alpine AS runner
