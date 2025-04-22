@@ -56,7 +56,7 @@ response:
 }
 ```
 
-- `GET /tokens/{id}` - выдача пары токенто по GUID юзера. Ответ такой же, как и в /login
+- `GET /tokens/{id}` - выдача пары токенов по GUID юзера. Ответ такой же, как и в /login
 
 - `POST /tokens/renew` - обновление access token'а. Если IP-адрес клиента изменился - посылается email-warning на почту юзера.
 
