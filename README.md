@@ -12,6 +12,8 @@ Refresh token хранится в БД в виде bcrypt хеша.
 
 ## Запуск:
 Создать бд `rest_auth_dev`
+
+
 `make docker.run`
 
 ## Маршруты:
