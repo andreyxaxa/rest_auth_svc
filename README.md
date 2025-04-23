@@ -11,6 +11,7 @@ Payload токенов содержит сведения об IP, ID, email юз
 Refresh token хранится в БД в виде bcrypt хеша.
 
 ## Запуск:
+Создать бд `rest_auth_dev`
 `make docker.run`
 
 ## Маршруты:
